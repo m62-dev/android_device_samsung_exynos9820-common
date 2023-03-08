@@ -155,7 +155,6 @@ vendor/tee/ffffffff-0000-0000-0000-000000000030
 vendor/tee/tui/resolution_common/ID00000100
 
 ## Sensors
-vendor/etc/sensors/hals.conf
 -vendor/lib/sensors.grip.so
 -vendor/lib64/sensors.grip.so
 

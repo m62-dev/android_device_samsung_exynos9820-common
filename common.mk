@@ -308,6 +308,14 @@ PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0.vendor:64 \
     android.hardware.sensors-service.samsung-multihal
 
+ifneq ($(TARGET_BOARD_PLATFORM), universal9825-r)
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
+else
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/sensors/hals-exynos9825-r.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
+endif
+
 # Shims
 PRODUCT_PACKAGES += \
     libshim_audioparams \
