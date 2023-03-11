@@ -146,8 +146,8 @@
             "Name": "DoubleTapToWakeEnable",
             "Path": "/sys/class/sec/tsp/cmd",
             "Values": [
-                "aod_enable,0",
-                "set_aod_rect,1440,3040,0,0"
+                "@DISABLE_DT2W_CMD@",
+                "@ENABLE_DT2W_CMD@"
             ],
             "DefaultIndex": 0,
             "ResetOnInit": false
@@ -290,7 +290,7 @@
             "PowerHint": "DOUBLE_TAP_TO_WAKE",
             "Node": "DoubleTapToWakeEnable",
             "Duration": 0,
-            "Value": "set_aod_rect,1440,3040,0,0"
+            "Value": "@ENABLE_DT2W_CMD@"
         }
     ]
 }

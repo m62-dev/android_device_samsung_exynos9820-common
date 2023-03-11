@@ -281,8 +281,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.power-service.samsung-libperfmgr
 
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+ifneq ($(TARGET_BOARD_PLATFORM), universal9825-r)
+PRODUCT_PACKAGES += \
+    powerhint.json
+else
+PRODUCT_PACKAGES += \
+    powerhint-exynos9825-r.json
+
+PRODUCT_VENDOR_PROPERTIES += \
+    vendor.powerhal.config=powerhint-exynos9825-r.json
+endif
 
 # PowerShare
 ifneq ($(TARGET_BOARD_PLATFORM), universal9825-r)
