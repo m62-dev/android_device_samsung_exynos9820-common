@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "SamsungCameraProvider@2.5"
+#define LOG_TAG "SamsungCameraProvider@2.6"
 
 #include "SamsungCameraProvider.h"
 
@@ -79,3 +79,54 @@ SamsungCameraProvider::SamsungCameraProvider() : LegacyCameraProviderImpl_2_5() 
 }
 
 SamsungCameraProvider::~SamsungCameraProvider() {}
+
+// Methods from ::android::hardware::camera::provider::V2_4::ICameraProvider follow.
+Return<V1_0::Status> SamsungCameraProvider::setCallback(const ::android::sp<V2_4::ICameraProviderCallback>& callback) {
+    return LegacyCameraProviderImpl_2_5::setCallback(callback);
+}
+
+Return<void> SamsungCameraProvider::getVendorTags(getVendorTags_cb _hidl_cb) {
+    return LegacyCameraProviderImpl_2_5::getVendorTags(_hidl_cb);
+}
+
+Return<void> SamsungCameraProvider::getCameraIdList(getCameraIdList_cb _hidl_cb) {
+    return LegacyCameraProviderImpl_2_5::getCameraIdList(_hidl_cb);
+}
+
+Return<void> SamsungCameraProvider::isSetTorchModeSupported(isSetTorchModeSupported_cb _hidl_cb) {
+    return LegacyCameraProviderImpl_2_5::isSetTorchModeSupported(_hidl_cb);
+}
+
+Return<void> SamsungCameraProvider::getCameraDeviceInterface_V1_x(const hidl_string& cameraDeviceName,
+        getCameraDeviceInterface_V1_x_cb _hidl_cb) {
+    return LegacyCameraProviderImpl_2_5::getCameraDeviceInterface_V1_x(cameraDeviceName, _hidl_cb);
+}
+
+Return<void> SamsungCameraProvider::getCameraDeviceInterface_V3_x(const hidl_string& cameraDeviceName,
+        getCameraDeviceInterface_V3_x_cb _hidl_cb) {
+    return LegacyCameraProviderImpl_2_5::getCameraDeviceInterface_V3_x(cameraDeviceName, _hidl_cb);
+}
+
+// Methods from ::android::hardware::camera::provider::V2_5::ICameraProvider follow.
+Return<void> SamsungCameraProvider::notifyDeviceStateChange(hidl_bitfield<V2_5::DeviceState> newState) {
+    return LegacyCameraProviderImpl_2_5::notifyDeviceStateChange(newState);
+}
+
+// Methods from ::android::hardware::camera::provider::V2_6::ICameraProvider follow.
+Return<void> SamsungCameraProvider::getConcurrentStreamingCameraIds(
+        ICameraProvider::getConcurrentStreamingCameraIds_cb _hidl_cb) {
+#ifdef EXYNOS9820_MODEL_m62
+    hidl_vec<hidl_vec<hidl_string>> hidl_camera_id_combinations = {{ "0", "50" }};
+#else
+    hidl_vec<hidl_vec<hidl_string>> hidl_camera_id_combinations;
+#endif
+    _hidl_cb(V1_0::Status::OK, hidl_camera_id_combinations);
+    return Void();
+}
+
+Return<void> SamsungCameraProvider::isConcurrentStreamCombinationSupported(
+        const hidl_vec<CameraIdAndStreamCombination>& /* configs */,
+        ICameraProvider::isConcurrentStreamCombinationSupported_cb _hidl_cb) {
+    _hidl_cb(V1_0::Status::OK, true);
+    return Void();
+}
